@@ -1,4 +1,5 @@
 import {Section, Eyebrow, Display} from './Section';
+import {EmberCta} from './EmberCta';
 
 type Item = {q: string; a: string};
 
@@ -91,6 +92,30 @@ export function Faq() {
               </p>
             </details>
           ))}
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            gap: '1rem 1.5rem',
+            paddingTop: '0.5rem',
+          }}
+        >
+          <EmberCta href="#offer" size="lg">
+            Claim the Forge
+          </EmberCta>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.7rem',
+              letterSpacing: '0.24em',
+              textTransform: 'uppercase',
+              color: 'var(--color-steel-500)',
+            }}
+          >
+            Free shipping · 30-day guarantee
+          </span>
         </div>
       </div>
     </Section>

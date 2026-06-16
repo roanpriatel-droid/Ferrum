@@ -1,19 +1,21 @@
-import {Link} from 'react-router';
+import {Link, useLocation} from 'react-router';
 import {FeTile} from './FeTile';
 
-const PRIMARY_NAV: {label: string; href: string}[] = [
-  {label: 'The Forge', href: '/#forge'},
-  {label: 'The Protocol', href: '/#protocol'},
-  {label: 'Offer', href: '/#offer'},
-  {label: 'Standards', href: '/#standards'},
-  {label: 'FAQ', href: '/#faq'},
+type FooterLink = {label: string; href: string; anchor?: string};
+
+const PRIMARY_NAV: FooterLink[] = [
+  {label: 'The Forge', href: '/#forge', anchor: 'forge'},
+  {label: 'The Protocol', href: '/#protocol', anchor: 'protocol'},
+  {label: 'Offer', href: '/#offer', anchor: 'offer'},
+  {label: 'Standards', href: '/#standards', anchor: 'standards'},
+  {label: 'FAQ', href: '/#faq', anchor: 'faq'},
 ];
 
-const META_NAV: {label: string; href: string}[] = [
-  {label: 'Shipping', href: '/policies/shipping-policy'},
-  {label: 'Returns', href: '/policies/refund-policy'},
-  {label: 'Privacy', href: '/policies/privacy-policy'},
-  {label: 'Terms', href: '/policies/terms-of-service'},
+const META_NAV: FooterLink[] = [
+  {label: 'Shipping', href: '/pages/shipping'},
+  {label: 'Returns', href: '/pages/returns'},
+  {label: 'Privacy', href: '/pages/privacy'},
+  {label: 'Terms', href: '/pages/terms'},
   {label: 'Contact', href: '/pages/contact'},
 ];
 
@@ -131,8 +133,11 @@ function FooterColumn({
   links,
 }: {
   label: string;
-  links: {label: string; href: string}[];
+  links: FooterLink[];
 }) {
+  const location = useLocation();
+  const onHome = location.pathname === '/';
+
   return (
     <div style={{display: 'grid', gap: '1rem'}}>
       <span
@@ -155,28 +160,59 @@ function FooterColumn({
           gap: '0.6rem',
         }}
       >
-        {links.map((link) => (
-          <li key={link.href}>
-            <Link
-              to={link.href}
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.95rem',
-                color: 'var(--color-bone)',
-                textDecoration: 'none',
-                transition: 'color 150ms ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--color-ember)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'var(--color-bone)';
-              }}
-            >
-              {link.label}
-            </Link>
-          </li>
-        ))}
+        {links.map((link) => {
+          const handleAnchorClick = link.anchor
+            ? (e: React.MouseEvent<HTMLAnchorElement>) => {
+                if (!onHome) return;
+                const el = document.getElementById(link.anchor!);
+                if (!el) return;
+                e.preventDefault();
+                el.scrollIntoView({behavior: 'smooth', block: 'start'});
+                history.replaceState(null, '', `#${link.anchor}`);
+              }
+            : undefined;
+
+          const linkStyle: React.CSSProperties = {
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.95rem',
+            color: 'var(--color-bone)',
+            textDecoration: 'none',
+            transition: 'color 150ms ease',
+          };
+
+          return (
+            <li key={link.href}>
+              {link.anchor ? (
+                <a
+                  href={link.href}
+                  onClick={handleAnchorClick}
+                  style={linkStyle}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'var(--color-ember)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--color-bone)';
+                  }}
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  to={link.href}
+                  style={linkStyle}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = 'var(--color-ember)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--color-bone)';
+                  }}
+                >
+                  {link.label}
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

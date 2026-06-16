@@ -297,10 +297,25 @@ export function OfferBox() {
               color: 'var(--color-steel-500)',
             }}
           >
-            <span>Free shipping · USD</span>
-            <span>Ships in 3–5 business days</span>
+            <span>Secure checkout · Shopify</span>
+            {/* TODO: confirm fulfillment origin before launch */}
+            <span>Ships from [TODO]</span>
             <span>30-day Forge Guarantee</span>
           </div>
+          <p
+            style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: '0.85rem',
+              lineHeight: 1.5,
+              color: 'var(--color-steel-300)',
+              margin: 0,
+              maxWidth: '40rem',
+            }}
+          >
+            Payment is processed by Shopify. Card details are never stored on
+            FERRUM servers. If the forearm has not changed in 30 days, return
+            the Forge for a full refund — keep the Protocol either way.
+          </p>
         </div>
       </div>
       <style
