@@ -1,5 +1,5 @@
 import {Section, Eyebrow, Display} from './Section';
-import {FeTile} from './FeTile';
+import {EmberCta} from './EmberCta';
 
 type Spec = {label: string; value: string};
 
@@ -16,13 +16,13 @@ export function ForgeSection() {
   return (
     <Section id="forge">
       <div
+        className="ferrum-forge-grid"
         style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(0, 1fr)',
-          gap: 'clamp(2.5rem, 5vw, 4rem)',
-          alignItems: 'start',
+          gap: 'clamp(2.5rem, 5vw, 4.5rem)',
+          alignItems: 'center',
         }}
-        className="forge-grid"
       >
         <div style={{display: 'grid', gap: '1.5rem'}}>
           <Eyebrow>03 · The Device</Eyebrow>
@@ -89,63 +89,152 @@ export function ForgeSection() {
               </div>
             ))}
           </dl>
+          <div style={{paddingTop: '0.5rem'}}>
+            <EmberCta href="#offer">Claim the Forge</EmberCta>
+          </div>
         </div>
-        <ForgeProductSlot />
+
+        <div
+          style={{
+            display: 'grid',
+            gap: 'clamp(1rem, 1.5vw, 1.5rem)',
+          }}
+        >
+          <figure
+            style={{
+              position: 'relative',
+              margin: 0,
+              border: '1px solid var(--color-steel-800)',
+              background: 'var(--color-graphite)',
+              overflow: 'hidden',
+              aspectRatio: '4 / 5',
+            }}
+          >
+            <img
+              src="/images/forge-glow.png"
+              alt="The Forge — FRM-01 — beauty shot with ember glow."
+              width={1280}
+              height={1600}
+              loading="lazy"
+              decoding="async"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: '50% 50%',
+                borderRadius: 0,
+              }}
+            />
+            <figcaption
+              style={{
+                position: 'absolute',
+                left: '1rem',
+                bottom: '1rem',
+                right: '1rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.65rem',
+                letterSpacing: '0.28em',
+                textTransform: 'uppercase',
+                color: 'var(--color-steel-300)',
+              }}
+            >
+              <span>FRM-01</span>
+              <span>26 · Fe · 55.845</span>
+            </figcaption>
+          </figure>
+
+          <figure
+            style={{
+              position: 'relative',
+              margin: 0,
+              border: '1px solid var(--color-steel-800)',
+              background: 'var(--color-graphite)',
+              overflow: 'hidden',
+              aspectRatio: '16 / 9',
+            }}
+          >
+            <img
+              src="/images/detail-macro.png"
+              alt="Macro detail — faceted grip surface, oxide-black finish."
+              width={1920}
+              height={1080}
+              loading="lazy"
+              decoding="async"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: '50% 50%',
+                borderRadius: 0,
+              }}
+            />
+            <div
+              style={{
+                position: 'absolute',
+                left: 0,
+                top: 0,
+                bottom: 0,
+                width: '55%',
+                background:
+                  'linear-gradient(90deg, color-mix(in oklab, var(--color-obsidian) 78%, transparent) 0%, transparent 100%)',
+                pointerEvents: 'none',
+              }}
+            />
+            <figcaption
+              style={{
+                position: 'absolute',
+                top: '1rem',
+                left: '1rem',
+                right: '1rem',
+                display: 'grid',
+                gap: '0.35rem',
+                maxWidth: '20rem',
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.65rem',
+                  letterSpacing: '0.28em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-steel-300)',
+                }}
+              >
+                Grip texture
+              </span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontStretch: '125%',
+                  fontWeight: 700,
+                  fontSize: '1.15rem',
+                  letterSpacing: '0.02em',
+                  textTransform: 'uppercase',
+                  color: 'var(--color-bone)',
+                  lineHeight: 1.1,
+                }}
+              >
+                Faceted under load.
+              </span>
+            </figcaption>
+          </figure>
+        </div>
       </div>
       <style
         dangerouslySetInnerHTML={{
           __html: `
             @media (min-width: 900px) {
-              .forge-grid { grid-template-columns: 1fr 1fr !important; }
+              .ferrum-forge-grid { grid-template-columns: 1fr 1fr !important; }
             }
           `,
         }}
       />
     </Section>
-  );
-}
-
-function ForgeProductSlot() {
-  // TODO: real product photography. This placeholder uses the FeTile as a
-  // brand-consistent stand-in until photography ships.
-  return (
-    <div
-      style={{
-        position: 'relative',
-        aspectRatio: '1 / 1',
-        background: 'var(--color-graphite)',
-        border: '1px solid var(--color-steel-800)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-      }}
-      aria-label="Product photography placeholder"
-    >
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--color-ember) 12%, transparent) 0%, transparent 60%)',
-        }}
-      />
-      <FeTile size={260} />
-      <span
-        style={{
-          position: 'absolute',
-          bottom: '1rem',
-          right: '1rem',
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.65rem',
-          letterSpacing: '0.22em',
-          textTransform: 'uppercase',
-          color: 'var(--color-steel-500)',
-        }}
-      >
-        FRM-01 · Render pending
-      </span>
-    </div>
   );
 }

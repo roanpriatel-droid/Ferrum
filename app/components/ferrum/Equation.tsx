@@ -40,47 +40,90 @@ const LEVERS: Lever[] = [
 
 export function Equation() {
   return (
-    <Section id="equation">
+    <>
       <div
+        aria-hidden="true"
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 'clamp(2rem, 4vw, 3rem)',
+          position: 'relative',
+          width: '100%',
+          height: 'clamp(120px, 16vw, 200px)',
+          overflow: 'hidden',
+          borderTop: '1px solid var(--color-steel-800)',
+          borderBottom: '1px solid var(--color-steel-800)',
+          background: 'var(--color-graphite)',
         }}
       >
-        <div style={{display: 'grid', gap: '1rem', maxWidth: '700px'}}>
-          <Eyebrow>02 · The Equation</Eyebrow>
-          <Display as="h2" size="md">
-            Four levers. One outcome.
-          </Display>
-          <p
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: 'clamp(1rem, 1.2vw, 1.15rem)',
-              lineHeight: 1.55,
-              color: 'var(--color-steel-300)',
-              margin: 0,
-            }}
-          >
-            Vascularity is not a wish. It is a product. Train each input on
-            purpose.
-          </p>
-        </div>
+        <img
+          src="/images/texture-steel.png"
+          alt=""
+          width={2048}
+          height={1152}
+          loading="lazy"
+          decoding="async"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: '50% 50%',
+            opacity: 0.85,
+            borderRadius: 0,
+          }}
+        />
         <div
           style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '1px',
-            background: 'var(--color-steel-800)',
-            border: '1px solid var(--color-steel-800)',
+            position: 'absolute',
+            inset: 0,
+            background:
+              'linear-gradient(90deg, var(--color-obsidian) 0%, transparent 20%, transparent 80%, var(--color-obsidian) 100%)',
+            pointerEvents: 'none',
+          }}
+        />
+      </div>
+
+      <Section id="equation">
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 'clamp(2.5rem, 5vw, 3.5rem)',
           }}
         >
-          {LEVERS.map((lever) => (
-            <LeverCell key={lever.symbol} lever={lever} />
-          ))}
+          <div style={{display: 'grid', gap: '1rem', maxWidth: '760px'}}>
+            <Eyebrow>02 · The Equation</Eyebrow>
+            <Display as="h2" size="md">
+              Four levers. One outcome.
+            </Display>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(1.05rem, 1.3vw, 1.2rem)',
+                lineHeight: 1.55,
+                color: 'var(--color-steel-300)',
+                margin: 0,
+              }}
+            >
+              Vascularity is not a wish. It is a product. Train each input on
+              purpose.
+            </p>
+          </div>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+              gap: '1px',
+              background: 'var(--color-steel-800)',
+              border: '1px solid var(--color-steel-800)',
+            }}
+          >
+            {LEVERS.map((lever) => (
+              <LeverCell key={lever.symbol} lever={lever} />
+            ))}
+          </div>
         </div>
-      </div>
-    </Section>
+      </Section>
+    </>
   );
 }
 
@@ -147,9 +190,7 @@ function LeverCell({lever}: {lever: Lever}) {
           {lever.symbol}
         </span>
       </div>
-      <div
-        style={{display: 'flex', flexDirection: 'column', gap: '0.5rem'}}
-      >
+      <div style={{display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
         <span
           style={{
             fontFamily: 'var(--font-display)',

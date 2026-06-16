@@ -1,129 +1,179 @@
 import {FeTile} from './FeTile';
-import {Eyebrow} from './Section';
+import {EmberCta} from './EmberCta';
 
 export function Hero() {
   return (
     <section
+      id="hero"
       style={{
         position: 'relative',
-        minHeight: '100vh',
+        minHeight: 'min(100vh, 920px)',
         background: 'var(--color-obsidian)',
         color: 'var(--color-bone)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 'clamp(3rem, 8vw, 7rem) clamp(1.25rem, 4vw, 3rem)',
         overflow: 'hidden',
       }}
     >
+      <img
+        src="/images/hero.png"
+        alt="The Forge — FRM-01 — rendered on dark marble under cold studio light."
+        width={2048}
+        height={1152}
+        loading="eager"
+        decoding="sync"
+        fetchPriority="high"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: '70% 50%',
+          borderRadius: 0,
+        }}
+      />
       <div
         aria-hidden="true"
         style={{
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(circle at 50% 65%, color-mix(in oklab, var(--color-ember) 10%, transparent) 0%, transparent 50%)',
+            'linear-gradient(90deg, color-mix(in oklab, var(--color-obsidian) 92%, transparent) 0%, color-mix(in oklab, var(--color-obsidian) 65%, transparent) 38%, transparent 62%)',
+          pointerEvents: 'none',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'linear-gradient(180deg, transparent 0%, transparent 60%, color-mix(in oklab, var(--color-obsidian) 95%, transparent) 100%)',
           pointerEvents: 'none',
         }}
       />
       <div
         style={{
           position: 'relative',
-          maxWidth: '1100px',
-          width: '100%',
+          minHeight: 'inherit',
+          maxWidth: '1320px',
           margin: '0 auto',
-          display: 'flex',
-          flexDirection: 'column',
+          padding:
+            'clamp(5rem, 10vw, 8rem) clamp(1.25rem, 4vw, 3rem) clamp(4rem, 8vw, 6rem)',
+          display: 'grid',
+          gridTemplateColumns: 'minmax(0, 1fr)',
           alignItems: 'center',
-          textAlign: 'center',
-          gap: 'clamp(1.75rem, 3vw, 2.75rem)',
         }}
+        className="ferrum-hero-grid"
       >
-        <FeTile size={140} />
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            gap: 'clamp(0.75rem, 1.5vw, 1.25rem)',
+            gap: 'clamp(1.5rem, 2.5vw, 2.25rem)',
+            maxWidth: '36rem',
           }}
         >
-          <Eyebrow>FRM-01 · The Forge</Eyebrow>
+          <div style={{display: 'flex', alignItems: 'center', gap: '1.25rem'}}>
+            <FeTile size={88} />
+            <span
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontStretch: '125%',
+                fontWeight: 800,
+                fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                color: 'var(--color-bone)',
+              }}
+            >
+              Ferrum
+            </span>
+          </div>
+
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.78rem',
+              letterSpacing: '0.28em',
+              textTransform: 'uppercase',
+              color: 'var(--color-steel-300)',
+            }}
+          >
+            FRM-01 · The Forge
+          </span>
+
           <h1
             style={{
               fontFamily: 'var(--font-display)',
               fontStretch: '125%',
               fontWeight: 800,
-              fontSize: 'clamp(3.5rem, 12vw, 9rem)',
-              lineHeight: 0.9,
-              letterSpacing: '0.04em',
+              fontSize: 'clamp(3rem, 9vw, 7.5rem)',
+              lineHeight: 0.88,
+              letterSpacing: '-0.01em',
               textTransform: 'uppercase',
               color: 'var(--color-bone)',
               margin: 0,
             }}
           >
-            Ferrum
+            Forged,
+            <br />
+            not given.
           </h1>
+
           <p
             style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 'clamp(0.875rem, 1vw, 1rem)',
-              letterSpacing: '0.32em',
-              textTransform: 'uppercase',
+              fontFamily: 'var(--font-body)',
+              fontSize: 'clamp(1.1rem, 1.45vw, 1.4rem)',
+              lineHeight: 1.45,
               color: 'var(--color-steel-300)',
+              maxWidth: '34ch',
               margin: 0,
             }}
           >
-            Forged, not given.
+            The only muscle you can&rsquo;t hide — engineered.
           </p>
+
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              gap: '1rem 1.5rem',
+            }}
+          >
+            <EmberCta href="#offer" size="lg">
+              Claim the Forge
+            </EmberCta>
+            <span
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.72rem',
+                letterSpacing: '0.24em',
+                textTransform: 'uppercase',
+                color: 'var(--color-steel-500)',
+              }}
+            >
+              Free shipping · 30-day guarantee
+            </span>
+          </div>
         </div>
-        <p
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(1.05rem, 1.4vw, 1.35rem)',
-            lineHeight: 1.45,
-            color: 'var(--color-steel-300)',
-            maxWidth: '42ch',
-            margin: 0,
-          }}
-        >
-          The only muscle you can&rsquo;t hide — engineered.
-        </p>
-        <a
-          href="#offer"
-          onClick={(e) => {
-            e.preventDefault();
-            const el = document.getElementById('offer');
-            if (el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
-          }}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.6rem',
-            padding: '1.1rem 2.25rem',
-            background: 'var(--color-ember)',
-            color: 'var(--color-obsidian)',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.85rem',
-            letterSpacing: '0.22em',
-            textTransform: 'uppercase',
-            textDecoration: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            transition: 'transform 200ms ease, filter 200ms ease',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.filter = 'brightness(1.1)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.filter = 'none';
-          }}
-        >
-          Claim the Forge
-          <span aria-hidden="true">→</span>
-        </a>
       </div>
+      <span
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          left: '50%',
+          bottom: '1.5rem',
+          transform: 'translateX(-50%)',
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.65rem',
+          letterSpacing: '0.32em',
+          textTransform: 'uppercase',
+          color: 'var(--color-steel-500)',
+        }}
+      >
+        Scroll · 26 · Fe · 55.845
+      </span>
     </section>
   );
 }

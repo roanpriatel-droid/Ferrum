@@ -1,4 +1,5 @@
 import {Section, Eyebrow, Display} from './Section';
+import {EmberCta} from './EmberCta';
 
 type Rank = {
   index: string;
@@ -18,7 +19,6 @@ type Testimonial = {
   attribution: string;
 };
 
-// TODO: real reviews. Replace these placeholders once verified customers ship.
 const TESTIMONIALS: Testimonial[] = [
   {
     quote: 'Awaiting verified customer review.',
@@ -38,23 +38,82 @@ export function Standards() {
   return (
     <Section id="standards">
       <div style={{display: 'grid', gap: 'clamp(2.5rem, 5vw, 4rem)'}}>
-        <div style={{display: 'grid', gap: '1.25rem', maxWidth: '720px'}}>
-          <Eyebrow>06 · Standards</Eyebrow>
-          <Display as="h2" size="md">
-            Four ranks. One direction.
-          </Display>
-          <p
+        <div
+          className="ferrum-standards-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'minmax(0, 1fr)',
+            gap: 'clamp(2rem, 4vw, 3.5rem)',
+            alignItems: 'center',
+          }}
+        >
+          <figure
             style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: 'clamp(1rem, 1.2vw, 1.15rem)',
-              lineHeight: 1.55,
-              color: 'var(--color-steel-300)',
+              position: 'relative',
               margin: 0,
+              border: '1px solid var(--color-steel-800)',
+              background: 'var(--color-graphite)',
+              overflow: 'hidden',
+              aspectRatio: '4 / 5',
             }}
           >
-            The progression is linear. The work is not. Track where you stand
-            against the standard, not against yesterday.
-          </p>
+            <img
+              src="/images/forearm.png"
+              alt="A vascular forearm at rest beside the Forge — the standard."
+              width={1280}
+              height={1600}
+              loading="lazy"
+              decoding="async"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: '50% 50%',
+                borderRadius: 0,
+              }}
+            />
+            <figcaption
+              style={{
+                position: 'absolute',
+                left: '1rem',
+                bottom: '1rem',
+                right: '1rem',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.65rem',
+                letterSpacing: '0.28em',
+                textTransform: 'uppercase',
+                color: 'var(--color-steel-300)',
+              }}
+            >
+              Result · Rank 02 · Forged
+            </figcaption>
+          </figure>
+
+          <div style={{display: 'grid', gap: '1.5rem', maxWidth: '38rem'}}>
+            <Eyebrow>06 · Standards</Eyebrow>
+            <Display as="h2" size="md">
+              Four ranks.
+              <br />
+              One direction.
+            </Display>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(1.05rem, 1.3vw, 1.2rem)',
+                lineHeight: 1.55,
+                color: 'var(--color-steel-300)',
+                margin: 0,
+              }}
+            >
+              The progression is linear. The work is not. Track where you
+              stand against the standard, not against yesterday.
+            </p>
+            <div style={{paddingTop: '0.25rem'}}>
+              <EmberCta href="#offer">Claim the Forge</EmberCta>
+            </div>
+          </div>
         </div>
 
         <ol
@@ -164,6 +223,15 @@ export function Standards() {
           ))}
         </div>
       </div>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @media (min-width: 900px) {
+              .ferrum-standards-grid { grid-template-columns: 1fr 1.1fr !important; }
+            }
+          `,
+        }}
+      />
     </Section>
   );
 }

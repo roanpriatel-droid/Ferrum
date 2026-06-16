@@ -1,52 +1,147 @@
-'use client';
-
-import {useState} from 'react';
 import {CartForm} from '@shopify/hydrogen';
 import {useAside} from '~/components/Aside';
 import {Section, Eyebrow, Display} from './Section';
 import {TierSelector} from './TierSelector';
+import {useOffer} from './OfferContext';
 import {
-  DEFAULT_TIER,
   FORGE_VARIANT_ID,
   TIERS,
-  type TierKey,
   formatUsd,
   savings,
 } from '~/lib/ferrum-offer';
 
 export function OfferBox() {
-  const [selected, setSelected] = useState<TierKey>(DEFAULT_TIER);
+  const {selected, setSelected} = useOffer();
   const tier = TIERS[selected];
   const saved = savings(tier);
   const {open} = useAside();
 
   return (
-    <Section id="offer">
+    <section
+      id="offer"
+      style={{
+        position: 'relative',
+        overflow: 'hidden',
+        borderTop: '1px solid var(--color-steel-800)',
+        borderBottom: '1px solid var(--color-steel-800)',
+        background: 'var(--color-obsidian)',
+      }}
+    >
+      <img
+        src="/images/forge-concrete.png"
+        alt=""
+        width={1920}
+        height={1280}
+        loading="lazy"
+        decoding="async"
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          objectPosition: '50% 40%',
+          opacity: 0.22,
+          borderRadius: 0,
+        }}
+      />
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'linear-gradient(180deg, color-mix(in oklab, var(--color-obsidian) 75%, transparent) 0%, color-mix(in oklab, var(--color-obsidian) 90%, transparent) 100%)',
+          pointerEvents: 'none',
+        }}
+      />
       <div
         style={{
+          position: 'relative',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding:
+            'clamp(5rem, 9vw, 8rem) clamp(1.25rem, 4vw, 3rem)',
           display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1fr)',
-          gap: 'clamp(2rem, 4vw, 3rem)',
+          gap: 'clamp(2.5rem, 4vw, 3.5rem)',
         }}
       >
-        <div style={{display: 'grid', gap: '1.25rem', maxWidth: '700px'}}>
-          <Eyebrow>05 · The Offer</Eyebrow>
-          <Display as="h2" size="lg">
-            Claim the Forge.
-          </Display>
-          <p
+        <header
+          style={{
+            display: 'grid',
+            gap: 'clamp(1.5rem, 3vw, 2.5rem)',
+            gridTemplateColumns: 'minmax(0, 1fr)',
+            alignItems: 'end',
+          }}
+          className="ferrum-offer-header"
+        >
+          <div style={{display: 'grid', gap: '1.25rem', maxWidth: '34rem'}}>
+            <Eyebrow>05 · The Offer</Eyebrow>
+            <Display as="h2" size="lg">
+              Claim the Forge.
+            </Display>
+            <p
+              style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: 'clamp(1.05rem, 1.3vw, 1.25rem)',
+                lineHeight: 1.55,
+                color: 'var(--color-steel-300)',
+                margin: 0,
+              }}
+            >
+              One device. Three configurations. Pick the one that matches the
+              work ahead.
+            </p>
+          </div>
+          <figure
             style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: 'clamp(1rem, 1.2vw, 1.15rem)',
-              lineHeight: 1.55,
-              color: 'var(--color-steel-300)',
+              position: 'relative',
               margin: 0,
+              border: '1px solid var(--color-steel-800)',
+              background: 'var(--color-graphite)',
+              overflow: 'hidden',
+              aspectRatio: '16 / 9',
             }}
           >
-            One device. Three configurations. Pick the one that matches the
-            work ahead.
-          </p>
-        </div>
+            <img
+              src="/images/arsenal-trio.png"
+              alt="Three Forge units — the Arsenal tier."
+              width={1920}
+              height={1080}
+              loading="lazy"
+              decoding="async"
+              style={{
+                position: 'absolute',
+                inset: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: '50% 50%',
+                borderRadius: 0,
+              }}
+            />
+            <figcaption
+              style={{
+                position: 'absolute',
+                left: '1rem',
+                bottom: '1rem',
+                right: '1rem',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'baseline',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.65rem',
+                letterSpacing: '0.28em',
+                textTransform: 'uppercase',
+                color: 'var(--color-steel-300)',
+              }}
+            >
+              <span>Solo · Duo · Arsenal</span>
+              <span>FRM-01</span>
+            </figcaption>
+          </figure>
+        </header>
 
         <div
           style={{
@@ -98,18 +193,34 @@ export function OfferBox() {
               >
                 Total · {tier.label}
               </span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontStretch: '125%',
-                  fontWeight: 800,
-                  fontSize: 'clamp(2rem, 3.5vw, 2.75rem)',
-                  color: 'var(--color-bone)',
-                  lineHeight: 1,
-                }}
+              <div
+                style={{display: 'flex', alignItems: 'baseline', gap: '0.75rem'}}
               >
-                {formatUsd(tier.price)}
-              </span>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontStretch: '125%',
+                    fontWeight: 800,
+                    fontSize: 'clamp(2.25rem, 3.8vw, 3rem)',
+                    color: 'var(--color-bone)',
+                    lineHeight: 1,
+                  }}
+                >
+                  {formatUsd(tier.price)}
+                </span>
+                {tier.compareAt && (
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: '1rem',
+                      color: 'var(--color-steel-500)',
+                      textDecoration: 'line-through',
+                    }}
+                  >
+                    {formatUsd(tier.compareAt)}
+                  </span>
+                )}
+              </div>
             </div>
             {saved > 0 && (
               <span
@@ -149,40 +260,59 @@ export function OfferBox() {
                 disabled={fetcher.state !== 'idle'}
                 style={{
                   width: '100%',
-                  padding: '1.15rem 2rem',
+                  padding: '1.25rem 2rem',
                   background: 'var(--color-ember)',
                   color: 'var(--color-obsidian)',
                   border: 'none',
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '0.9rem',
-                  letterSpacing: '0.22em',
+                  fontSize: '0.95rem',
+                  letterSpacing: '0.24em',
                   textTransform: 'uppercase',
                   cursor: fetcher.state !== 'idle' ? 'progress' : 'pointer',
                   opacity: fetcher.state !== 'idle' ? 0.7 : 1,
                   transition: 'filter 200ms ease',
                 }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.filter = 'brightness(1.08)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.filter = 'none';
+                }}
               >
-                {fetcher.state !== 'idle' ? 'Sending…' : 'Add to cart'}
+                {fetcher.state !== 'idle' ? 'Sending…' : 'Claim the Forge'}
               </button>
             )}
           </CartForm>
 
-          <p
+          <div
             style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              gap: '0.75rem',
               fontFamily: 'var(--font-mono)',
               fontSize: '0.7rem',
               letterSpacing: '0.18em',
               textTransform: 'uppercase',
               color: 'var(--color-steel-500)',
-              textAlign: 'center',
-              margin: 0,
             }}
           >
-            Ships in 3–5 business days · USD
-          </p>
+            <span>Free shipping · USD</span>
+            <span>Ships in 3–5 business days</span>
+            <span>30-day Forge Guarantee</span>
+          </div>
         </div>
       </div>
-    </Section>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @media (min-width: 900px) {
+              .ferrum-offer-header { grid-template-columns: 1.1fr 1fr !important; }
+            }
+          `,
+        }}
+      />
+    </section>
   );
 }
 

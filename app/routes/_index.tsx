@@ -8,6 +8,8 @@ import {OfferBox} from '~/components/ferrum/OfferBox';
 import {Standards} from '~/components/ferrum/Standards';
 import {Guarantee} from '~/components/ferrum/Guarantee';
 import {Faq} from '~/components/ferrum/Faq';
+import {OfferProvider} from '~/components/ferrum/OfferContext';
+import {StickyBuyBar} from '~/components/ferrum/StickyBuyBar';
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -21,29 +23,29 @@ export const meta: Route.MetaFunction = () => {
 };
 
 export async function loader() {
-  // The Forge does not exist in the catalog yet. The page renders entirely
-  // from local offer config; no Storefront product query is required for
-  // first paint. Add product loading here once FRM-01 is created in admin.
   return {};
 }
 
 export default function Homepage() {
   return (
-    <div
-      style={{
-        background: 'var(--color-obsidian)',
-        color: 'var(--color-bone)',
-      }}
-    >
-      <Hero />
-      <Premise />
-      <Equation />
-      <ForgeSection />
-      <Protocol />
-      <OfferBox />
-      <Standards />
-      <Guarantee />
-      <Faq />
-    </div>
+    <OfferProvider>
+      <div
+        style={{
+          background: 'var(--color-obsidian)',
+          color: 'var(--color-bone)',
+        }}
+      >
+        <Hero />
+        <Premise />
+        <Equation />
+        <ForgeSection />
+        <Protocol />
+        <OfferBox />
+        <Standards />
+        <Guarantee />
+        <Faq />
+      </div>
+      <StickyBuyBar />
+    </OfferProvider>
   );
 }
