@@ -1,4 +1,5 @@
 import type {CSSProperties, ReactNode} from 'react';
+import {Link} from 'react-router';
 
 type Variant = 'solid' | 'ghost';
 type Size = 'md' | 'lg';
@@ -51,7 +52,7 @@ export function EmberCta({
     ...style,
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (href.startsWith('#')) {
       e.preventDefault();
       const el = document.getElementById(href.slice(1));
@@ -59,22 +60,46 @@ export function EmberCta({
     }
   };
 
+  const hoverEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.style.filter = 'brightness(1.08)';
+    if (!solid) {
+      e.currentTarget.style.background =
+        'color-mix(in oklab, var(--color-ember) 12%, transparent)';
+    }
+  };
+
+  const hoverLeave = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.currentTarget.style.filter = 'none';
+    if (!solid) e.currentTarget.style.background = 'transparent';
+  };
+
+  const isInternalPath =
+    href.startsWith('/') &&
+    !href.startsWith('//') &&
+    !href.startsWith('/#');
+
+  if (isInternalPath) {
+    return (
+      <Link
+        to={href}
+        prefetch="intent"
+        style={base}
+        onMouseEnter={hoverEnter}
+        onMouseLeave={hoverLeave}
+      >
+        {children}
+        <span aria-hidden="true">→</span>
+      </Link>
+    );
+  }
+
   return (
     <a
       href={href}
-      onClick={handleClick}
+      onClick={handleAnchorClick}
       style={base}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.filter = 'brightness(1.08)';
-        if (!solid) {
-          e.currentTarget.style.background =
-            'color-mix(in oklab, var(--color-ember) 12%, transparent)';
-        }
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.filter = 'none';
-        if (!solid) e.currentTarget.style.background = 'transparent';
-      }}
+      onMouseEnter={hoverEnter}
+      onMouseLeave={hoverLeave}
     >
       {children}
       <span aria-hidden="true">→</span>

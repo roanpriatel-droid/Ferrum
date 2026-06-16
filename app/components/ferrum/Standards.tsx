@@ -1,5 +1,10 @@
+import {Link} from 'react-router';
 import {Section, Eyebrow, Display} from './Section';
 import {EmberCta} from './EmberCta';
+import {ReviewCard} from './reviews/ReviewCard';
+import {StarRating} from './reviews/StarRating';
+import {getTopReviews, getAggregate} from '~/lib/ferrum-reviews';
+import {PDP_PATH, REVIEWS_PATH} from '~/lib/ferrum-tiers';
 
 type Rank = {
   index: string;
@@ -12,26 +17,6 @@ const RANKS: Rank[] = [
   {index: '01', name: 'Trained', caption: 'Visible vein in load. 30 days in.'},
   {index: '02', name: 'Forged', caption: 'Resting vascularity. Daily presence.'},
   {index: '03', name: 'Iron', caption: 'Branched, dense, permanent.'},
-];
-
-type Testimonial = {
-  quote: string;
-  attribution: string;
-};
-
-const TESTIMONIALS: Testimonial[] = [
-  {
-    quote: 'Awaiting verified customer review.',
-    attribution: 'Pending · 2026',
-  },
-  {
-    quote: 'Awaiting verified customer review.',
-    attribution: 'Pending · 2026',
-  },
-  {
-    quote: 'Awaiting verified customer review.',
-    attribution: 'Pending · 2026',
-  },
 ];
 
 export function Standards() {
@@ -111,7 +96,7 @@ export function Standards() {
               stand against the standard, not against yesterday.
             </p>
             <div style={{paddingTop: '0.25rem'}}>
-              <EmberCta href="#offer">Claim the Forge</EmberCta>
+              <EmberCta href={PDP_PATH}>Claim the Forge</EmberCta>
             </div>
           </div>
         </div>
@@ -176,50 +161,21 @@ export function Standards() {
           ))}
         </ol>
 
+        <span
+          id="reviews"
+          aria-hidden="true"
+          style={{display: 'block', height: 0, marginTop: '-1rem'}}
+        />
+        <ReviewStripHeader />
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
             gap: '1rem',
           }}
         >
-          {TESTIMONIALS.map((t, i) => (
-            <blockquote
-              key={i}
-              style={{
-                margin: 0,
-                padding: '1.5rem',
-                background: 'var(--color-graphite)',
-                border: '1px solid var(--color-steel-800)',
-                display: 'grid',
-                gap: '1rem',
-                minHeight: '140px',
-              }}
-            >
-              <p
-                style={{
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '0.95rem',
-                  lineHeight: 1.5,
-                  color: 'var(--color-steel-300)',
-                  fontStyle: 'italic',
-                  margin: 0,
-                }}
-              >
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.7rem',
-                  letterSpacing: '0.18em',
-                  textTransform: 'uppercase',
-                  color: 'var(--color-steel-500)',
-                }}
-              >
-                {t.attribution}
-              </span>
-            </blockquote>
+          {getTopReviews(3).map((r) => (
+            <ReviewCard key={r.id} review={r} variant="highlight" />
           ))}
         </div>
       </div>
@@ -233,5 +189,55 @@ export function Standards() {
         }}
       />
     </Section>
+  );
+}
+
+function ReviewStripHeader() {
+  const aggregate = getAggregate();
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '1rem',
+        paddingBottom: '0.5rem',
+      }}
+    >
+      <div
+        style={{display: 'flex', alignItems: 'center', gap: '0.75rem'}}
+      >
+        <StarRating value={aggregate.average} size={16} />
+        <span
+          style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.78rem',
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            color: 'var(--color-bone)',
+          }}
+        >
+          {aggregate.averageDisplay} / 5 · {aggregate.total}+ verified
+        </span>
+      </div>
+      <Link
+        to={REVIEWS_PATH}
+        prefetch="intent"
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.72rem',
+          letterSpacing: '0.22em',
+          textTransform: 'uppercase',
+          color: 'var(--color-ember)',
+          textDecoration: 'none',
+          borderBottom:
+            '1px solid color-mix(in oklab, var(--color-ember) 50%, transparent)',
+          paddingBottom: '0.15rem',
+        }}
+      >
+        Read all reviews →
+      </Link>
+    </div>
   );
 }

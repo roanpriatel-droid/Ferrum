@@ -1,5 +1,6 @@
 import {Eyebrow, Display} from './Section';
 import {EmberCta} from './EmberCta';
+import {PDP_PATH} from '~/lib/ferrum-tiers';
 
 export function Guarantee() {
   return (
@@ -88,7 +89,7 @@ export function Guarantee() {
           Keep the Protocol either way.
         </span>
         <div style={{paddingTop: '1.25rem'}}>
-          <EmberCta href="#offer" size="lg">
+          <EmberCta href={PDP_PATH} size="lg">
             Claim the Forge
           </EmberCta>
         </div>

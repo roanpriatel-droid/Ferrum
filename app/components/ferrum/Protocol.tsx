@@ -1,5 +1,6 @@
 import {Section, Eyebrow, Display} from './Section';
 import {EmberCta} from './EmberCta';
+import {PDP_PATH} from '~/lib/ferrum-tiers';
 
 const PROTOCOL_POINTS = [
   '30 days of programmed sessions',
@@ -117,7 +118,7 @@ export function Protocol() {
               ))}
             </ul>
             <div style={{paddingTop: '0.75rem'}}>
-              <EmberCta href="#offer">Claim the Forge</EmberCta>
+              <EmberCta href={PDP_PATH}>Claim the Forge</EmberCta>
             </div>
           </div>
           <aside

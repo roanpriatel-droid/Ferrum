@@ -1,6 +1,7 @@
 import type {ReactNode} from 'react';
 import {Section, Eyebrow, Display} from './Section';
 import {EmberCta} from './EmberCta';
+import {PDP_PATH} from '~/lib/ferrum-tiers';
 
 type LegalPageProps = {
   eyebrow: string;
@@ -77,7 +78,7 @@ export function LegalPage({
           <Display as="h2" size="md">
             Claim the Forge.
           </Display>
-          <EmberCta href="/#offer" size="lg">
+          <EmberCta href={PDP_PATH} size="lg">
             Claim the Forge
           </EmberCta>
         </div>

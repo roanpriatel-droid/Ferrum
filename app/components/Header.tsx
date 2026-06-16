@@ -7,6 +7,7 @@ import {
 } from '@shopify/hydrogen';
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
+import {PDP_PATH, PROTOCOL_PATH, REVIEWS_PATH} from '~/lib/ferrum-tiers';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -15,12 +16,14 @@ interface HeaderProps {
   publicStoreDomain: string;
 }
 
-type AnchorLink = {label: string; href: string; anchor: string};
+type NavLinkEntry =
+  | {kind: 'path'; label: string; to: string}
+  | {kind: 'anchor'; label: string; href: string; anchor: string};
 
-const NAV_LINKS: AnchorLink[] = [
-  {label: 'The Forge', href: '/#forge', anchor: 'forge'},
-  {label: 'The Protocol', href: '/#protocol', anchor: 'protocol'},
-  {label: 'Reviews', href: '/#standards', anchor: 'standards'},
+const NAV_LINKS: NavLinkEntry[] = [
+  {kind: 'path', label: 'The Forge', to: PDP_PATH},
+  {kind: 'path', label: 'The Protocol', to: PROTOCOL_PATH},
+  {kind: 'path', label: 'Reviews', to: REVIEWS_PATH},
 ];
 
 export function Header({cart}: HeaderProps) {
@@ -88,9 +91,13 @@ export function Header({cart}: HeaderProps) {
           gap: 'clamp(1.25rem, 3vw, 2.25rem)',
         }}
       >
-        {NAV_LINKS.map((link) => (
-          <AnchorNavLink key={link.href} link={link} />
-        ))}
+        {NAV_LINKS.map((link) =>
+          link.kind === 'anchor' ? (
+            <AnchorNavLink key={link.href} link={link} />
+          ) : (
+            <PathNavLink key={link.to} link={link} />
+          ),
+        )}
       </nav>
 
       <div
@@ -154,6 +161,19 @@ export function HeaderMenu(_: {
   return null;
 }
 
+type AnchorLink = Extract<NavLinkEntry, {kind: 'anchor'}>;
+type PathLink = Extract<NavLinkEntry, {kind: 'path'}>;
+
+const navLinkStyle = (active: boolean): React.CSSProperties => ({
+  fontFamily: 'var(--font-mono)',
+  fontSize: '0.75rem',
+  letterSpacing: '0.22em',
+  textTransform: 'uppercase',
+  color: active ? 'var(--color-bone)' : 'var(--color-steel-300)',
+  textDecoration: 'none',
+  transition: 'color 150ms ease',
+});
+
 function AnchorNavLink({link}: {link: AnchorLink}) {
   const location = useLocation();
   const onHome = location.pathname === '/';
@@ -170,15 +190,7 @@ function AnchorNavLink({link}: {link: AnchorLink}) {
         el.scrollIntoView({behavior: 'smooth', block: 'start'});
         history.replaceState(null, '', `#${link.anchor}`);
       }}
-      style={{
-        fontFamily: 'var(--font-mono)',
-        fontSize: '0.75rem',
-        letterSpacing: '0.22em',
-        textTransform: 'uppercase',
-        color: isActive ? 'var(--color-bone)' : 'var(--color-steel-300)',
-        textDecoration: 'none',
-        transition: 'color 150ms ease',
-      }}
+      style={navLinkStyle(isActive)}
       onMouseEnter={(e) => {
         e.currentTarget.style.color = 'var(--color-bone)';
       }}
@@ -193,10 +205,32 @@ function AnchorNavLink({link}: {link: AnchorLink}) {
   );
 }
 
-function ClaimCta() {
+function PathNavLink({link}: {link: PathLink}) {
   const location = useLocation();
-  const onHome = location.pathname === '/';
+  const isActive =
+    location.pathname === link.to ||
+    location.pathname.startsWith(`${link.to}/`);
 
+  return (
+    <NavLink
+      to={link.to}
+      prefetch="intent"
+      style={navLinkStyle(isActive)}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.color = 'var(--color-bone)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.color = isActive
+          ? 'var(--color-bone)'
+          : 'var(--color-steel-300)';
+      }}
+    >
+      {link.label}
+    </NavLink>
+  );
+}
+
+function ClaimCta() {
   const baseStyle: React.CSSProperties = {
     display: 'inline-flex',
     alignItems: 'center',
@@ -216,16 +250,9 @@ function ClaimCta() {
   };
 
   return (
-    <a
-      href="/#offer"
-      onClick={(e) => {
-        if (!onHome) return;
-        const el = document.getElementById('offer');
-        if (!el) return;
-        e.preventDefault();
-        el.scrollIntoView({behavior: 'smooth', block: 'start'});
-        history.replaceState(null, '', '#offer');
-      }}
+    <Link
+      to={PDP_PATH}
+      prefetch="intent"
       style={baseStyle}
       onMouseEnter={(e) => {
         e.currentTarget.style.filter = 'brightness(1.08)';
@@ -235,7 +262,7 @@ function ClaimCta() {
       }}
     >
       Claim the Forge
-    </a>
+    </Link>
   );
 }
 
@@ -325,38 +352,55 @@ function MobileMenu({open, onClose}: {open: boolean; onClose: () => void}) {
           margin: '0 auto',
         }}
       >
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            onClick={(e) => {
-              if (onHome) {
-                const el = document.getElementById(link.anchor);
-                if (el) {
-                  e.preventDefault();
-                  el.scrollIntoView({behavior: 'smooth', block: 'start'});
-                  history.replaceState(null, '', `#${link.anchor}`);
-                }
-              }
-              onClose();
-            }}
-            tabIndex={open ? 0 : -1}
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontStretch: '125%',
-              fontWeight: 700,
-              fontSize: '1.5rem',
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-              color: 'var(--color-bone)',
-              textDecoration: 'none',
-              padding: '1.1rem 0',
-              borderBottom: '1px solid var(--color-steel-800)',
-            }}
-          >
-            {link.label}
-          </a>
-        ))}
+        {NAV_LINKS.map((link) => {
+          const linkStyle: React.CSSProperties = {
+            fontFamily: 'var(--font-display)',
+            fontStretch: '125%',
+            fontWeight: 700,
+            fontSize: '1.5rem',
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+            color: 'var(--color-bone)',
+            textDecoration: 'none',
+            padding: '1.1rem 0',
+            borderBottom: '1px solid var(--color-steel-800)',
+          };
+          if (link.kind === 'anchor') {
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => {
+                  if (onHome) {
+                    const el = document.getElementById(link.anchor);
+                    if (el) {
+                      e.preventDefault();
+                      el.scrollIntoView({behavior: 'smooth', block: 'start'});
+                      history.replaceState(null, '', `#${link.anchor}`);
+                    }
+                  }
+                  onClose();
+                }}
+                tabIndex={open ? 0 : -1}
+                style={linkStyle}
+              >
+                {link.label}
+              </a>
+            );
+          }
+          return (
+            <Link
+              key={link.to}
+              to={link.to}
+              prefetch="intent"
+              onClick={onClose}
+              tabIndex={open ? 0 : -1}
+              style={linkStyle}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
 
         <div style={{display: 'grid', gap: '0.75rem', marginTop: '2rem'}}>
           {[

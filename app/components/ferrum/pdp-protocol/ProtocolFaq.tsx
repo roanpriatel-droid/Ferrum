@@ -1,34 +1,38 @@
-import {Section, Eyebrow, Display} from './Section';
-import {EmberCta} from './EmberCta';
-import {PDP_PATH} from '~/lib/ferrum-tiers';
+import {Section, Eyebrow, Display} from '../Section';
 
-type Item = {q: string; a: string};
-
-const ITEMS: Item[] = [
+const ITEMS: Array<{q: string; a: string}> = [
   {
-    q: 'When will I see results?',
-    a: 'Forearm circumference moves in 14 days under the FERRUM Protocol. Resting vascularity follows at 30 to 45 days for most. Body composition determines the rest.',
+    q: 'How is the Protocol delivered?',
+    a: 'A versioned PDF and a companion web reader. Sent to the email used at checkout the moment payment clears. No app, no login wall.',
   },
   {
-    q: 'How often do I train, and can I overtrain?',
-    a: 'Five sessions of 8 to 12 minutes per week. The Protocol auto-regulates load and rest. Forearms recover fast — under the prescription, overtraining is not the limiting factor.',
+    q: 'Do I need the Forge to use it?',
+    a: 'The Protocol is calibrated to the Forge. The phases assume you train on the device. Buy them together for the full system.',
   },
   {
-    q: 'Does it fit my current training?',
-    a: 'Yes. The Forge is a finisher, not a replacement. Slot the prescribed sessions after lifts, before cardio, or as standalone work. Five minutes is enough.',
+    q: 'Do I need a gym?',
+    a: 'No. Every session is hand-held and runs eight to twelve minutes. Train at a desk, on a couch, in a hotel room.',
   },
   {
-    q: 'What is included?',
-    a: 'One Forge per unit ordered, the 30-day FERRUM Protocol delivered digitally on ship date, and free shipping. No subscriptions. No upsells at checkout.',
+    q: 'I am a beginner. Is this for me?',
+    a: 'Yes. Phase 01 (Prime) calibrates against your starting grip and walks the work up. The Protocol auto-regulates load and rest.',
+  },
+  {
+    q: 'Do I need occlusion bands?',
+    a: 'No. Occlusion is offered as an optional finisher in the Forge phase. The rest of the system runs without it.',
+  },
+  {
+    q: 'Can I get a refund?',
+    a: 'Yes. Thirty-day guarantee. If the Protocol has not earned its place, email returns@ferrum.fit and the purchase is refunded.',
   },
 ];
 
-export function Faq() {
+export function ProtocolFaq() {
   return (
-    <Section id="faq">
+    <Section id="protocol-faq">
       <div style={{display: 'grid', gap: 'clamp(2rem, 4vw, 3rem)'}}>
         <div style={{display: 'grid', gap: '1rem', maxWidth: '720px'}}>
-          <Eyebrow>08 · FAQ</Eyebrow>
+          <Eyebrow>05 · FAQ</Eyebrow>
           <Display as="h2" size="md">
             Common questions.
           </Display>
@@ -61,7 +65,7 @@ export function Faq() {
                   fontFamily: 'var(--font-display)',
                   fontStretch: '125%',
                   fontWeight: 600,
-                  fontSize: 'clamp(1.05rem, 1.5vw, 1.25rem)',
+                  fontSize: 'clamp(1.05rem, 1.5vw, 1.2rem)',
                   letterSpacing: '0.02em',
                   textTransform: 'uppercase',
                   color: 'var(--color-bone)',
@@ -93,30 +97,6 @@ export function Faq() {
               </p>
             </details>
           ))}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            gap: '1rem 1.5rem',
-            paddingTop: '0.5rem',
-          }}
-        >
-          <EmberCta href={PDP_PATH} size="lg">
-            Claim the Forge
-          </EmberCta>
-          <span
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.7rem',
-              letterSpacing: '0.24em',
-              textTransform: 'uppercase',
-              color: 'var(--color-steel-500)',
-            }}
-          >
-            Free shipping · 30-day guarantee
-          </span>
         </div>
       </div>
     </Section>

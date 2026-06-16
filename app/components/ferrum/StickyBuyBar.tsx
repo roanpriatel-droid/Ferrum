@@ -1,13 +1,12 @@
 import {useEffect, useState} from 'react';
-import {CartForm} from '@shopify/hydrogen';
-import {useAside} from '~/components/Aside';
+import {Link} from 'react-router';
 import {useOffer} from './OfferContext';
-import {FORGE_VARIANT_ID, TIERS, formatUsd} from '~/lib/ferrum-offer';
+import {TIERS, formatUsd} from '~/lib/ferrum-offer';
+import {PDP_PATH} from '~/lib/ferrum-tiers';
 
 export function StickyBuyBar() {
   const {selected} = useOffer();
   const tier = TIERS[selected];
-  const {open} = useAside();
   const [heroPast, setHeroPast] = useState(false);
   const [offerVisible, setOfferVisible] = useState(false);
 
@@ -151,53 +150,36 @@ export function StickyBuyBar() {
           </div>
         </div>
 
-        <CartForm
-          route="/cart"
-          action={CartForm.ACTIONS.LinesAdd}
-          inputs={{
-            lines: [
-              {
-                merchandiseId: FORGE_VARIANT_ID,
-                quantity: tier.qty,
-                attributes: [
-                  {key: 'Tier', value: tier.label},
-                  {key: 'Tier SKU', value: tier.id},
-                ],
-              },
-            ],
+        <Link
+          to={PDP_PATH}
+          prefetch="intent"
+          tabIndex={visible ? 0 : -1}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0.85rem clamp(1rem, 3vw, 1.75rem)',
+            background: 'var(--color-ember)',
+            color: 'var(--color-obsidian)',
+            border: 'none',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.75rem',
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            cursor: 'pointer',
+            textDecoration: 'none',
+            whiteSpace: 'nowrap',
+            transition: 'filter 200ms ease',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.filter = 'brightness(1.08)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.filter = 'none';
           }}
         >
-          {(fetcher) => (
-            <button
-              type="submit"
-              tabIndex={visible ? 0 : -1}
-              onClick={() => open('cart')}
-              disabled={fetcher.state !== 'idle'}
-              style={{
-                padding: '0.85rem clamp(1rem, 3vw, 1.75rem)',
-                background: 'var(--color-ember)',
-                color: 'var(--color-obsidian)',
-                border: 'none',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
-                letterSpacing: '0.22em',
-                textTransform: 'uppercase',
-                cursor: fetcher.state !== 'idle' ? 'progress' : 'pointer',
-                opacity: fetcher.state !== 'idle' ? 0.7 : 1,
-                whiteSpace: 'nowrap',
-                transition: 'filter 200ms ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.filter = 'brightness(1.08)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.filter = 'none';
-              }}
-            >
-              {fetcher.state !== 'idle' ? 'Sending…' : 'Add to cart'}
-            </button>
-          )}
-        </CartForm>
+          Claim the Forge
+        </Link>
       </div>
     </div>
   );

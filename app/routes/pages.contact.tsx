@@ -2,6 +2,7 @@ import {Form, useActionData, useNavigation} from 'react-router';
 import type {Route} from './+types/pages.contact';
 import {Section, Eyebrow, Display} from '~/components/ferrum/Section';
 import {EmberCta} from '~/components/ferrum/EmberCta';
+import {PDP_PATH} from '~/lib/ferrum-tiers';
 
 export const meta: Route.MetaFunction = () => {
   return [
@@ -194,7 +195,7 @@ function Confirmation({name}: {name: string}) {
           <Display as="h2" size="md">
             Back to the work.
           </Display>
-          <EmberCta href="/#offer" size="lg">
+          <EmberCta href={PDP_PATH} size="lg">
             Claim the Forge
           </EmberCta>
         </div>

@@ -1,11 +1,13 @@
 import {Link, useLocation} from 'react-router';
 import {FeTile} from './FeTile';
+import {PDP_PATH, PROTOCOL_PATH, REVIEWS_PATH} from '~/lib/ferrum-tiers';
 
 type FooterLink = {label: string; href: string; anchor?: string};
 
 const PRIMARY_NAV: FooterLink[] = [
-  {label: 'The Forge', href: '/#forge', anchor: 'forge'},
-  {label: 'The Protocol', href: '/#protocol', anchor: 'protocol'},
+  {label: 'The Forge', href: PDP_PATH},
+  {label: 'The Protocol', href: PROTOCOL_PATH},
+  {label: 'Reviews', href: REVIEWS_PATH},
   {label: 'Offer', href: '/#offer', anchor: 'offer'},
   {label: 'Standards', href: '/#standards', anchor: 'standards'},
   {label: 'FAQ', href: '/#faq', anchor: 'faq'},

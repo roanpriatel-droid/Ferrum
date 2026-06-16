@@ -1,20 +1,14 @@
-import {CartForm} from '@shopify/hydrogen';
-import {useAside} from '~/components/Aside';
-import {Section, Eyebrow, Display} from './Section';
+import {Link} from 'react-router';
+import {Eyebrow, Display} from './Section';
 import {TierSelector} from './TierSelector';
 import {useOffer} from './OfferContext';
-import {
-  FORGE_VARIANT_ID,
-  TIERS,
-  formatUsd,
-  savings,
-} from '~/lib/ferrum-offer';
+import {TIERS, formatUsd, savings} from '~/lib/ferrum-offer';
+import {PDP_PATH} from '~/lib/ferrum-tiers';
 
 export function OfferBox() {
   const {selected, setSelected} = useOffer();
   const tier = TIERS[selected];
   const saved = savings(tier);
-  const {open} = useAside();
 
   return (
     <section
@@ -237,52 +231,37 @@ export function OfferBox() {
             )}
           </div>
 
-          <CartForm
-            route="/cart"
-            action={CartForm.ACTIONS.LinesAdd}
-            inputs={{
-              lines: [
-                {
-                  merchandiseId: FORGE_VARIANT_ID,
-                  quantity: tier.qty,
-                  attributes: [
-                    {key: 'Tier', value: tier.label},
-                    {key: 'Tier SKU', value: tier.id},
-                  ],
-                },
-              ],
+          <Link
+            to={PDP_PATH}
+            prefetch="intent"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.75rem',
+              width: '100%',
+              padding: '1.25rem 2rem',
+              background: 'var(--color-ember)',
+              color: 'var(--color-obsidian)',
+              border: 'none',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.95rem',
+              letterSpacing: '0.24em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              textDecoration: 'none',
+              transition: 'filter 200ms ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.filter = 'brightness(1.08)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.filter = 'none';
             }}
           >
-            {(fetcher) => (
-              <button
-                type="submit"
-                onClick={() => open('cart')}
-                disabled={fetcher.state !== 'idle'}
-                style={{
-                  width: '100%',
-                  padding: '1.25rem 2rem',
-                  background: 'var(--color-ember)',
-                  color: 'var(--color-obsidian)',
-                  border: 'none',
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.95rem',
-                  letterSpacing: '0.24em',
-                  textTransform: 'uppercase',
-                  cursor: fetcher.state !== 'idle' ? 'progress' : 'pointer',
-                  opacity: fetcher.state !== 'idle' ? 0.7 : 1,
-                  transition: 'filter 200ms ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.filter = 'brightness(1.08)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.filter = 'none';
-                }}
-              >
-                {fetcher.state !== 'idle' ? 'Sending…' : 'Claim the Forge'}
-              </button>
-            )}
-          </CartForm>
+            Claim the Forge · {tier.label}
+            <span aria-hidden="true">→</span>
+          </Link>
 
           <div
             style={{

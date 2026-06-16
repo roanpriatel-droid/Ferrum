@@ -1,5 +1,6 @@
 import {Section, Eyebrow, Display} from './Section';
 import {EmberCta} from './EmberCta';
+import {PDP_PATH} from '~/lib/ferrum-tiers';
 
 type Spec = {label: string; value: string};
 
@@ -90,7 +91,7 @@ export function ForgeSection() {
             ))}
           </dl>
           <div style={{paddingTop: '0.5rem'}}>
-            <EmberCta href="#offer">Claim the Forge</EmberCta>
+            <EmberCta href={PDP_PATH}>Claim the Forge</EmberCta>
           </div>
         </div>
 

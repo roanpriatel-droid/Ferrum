@@ -1,5 +1,6 @@
 import {Eyebrow, Display} from './Section';
 import {EmberCta} from './EmberCta';
+import {PDP_PATH} from '~/lib/ferrum-tiers';
 
 export function Premise() {
   return (
@@ -106,7 +107,7 @@ export function Premise() {
           >
             Veins are earned.
           </span>
-          <EmberCta href="#offer" variant="ghost">
+          <EmberCta href={PDP_PATH} variant="ghost">
             Claim the Forge
           </EmberCta>
         </div>
