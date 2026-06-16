@@ -62,6 +62,16 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
+    {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
+    {
+      rel: 'preconnect',
+      href: 'https://fonts.gstatic.com',
+      crossOrigin: 'anonymous',
+    },
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,400;125,500;125,600;125,700;125,800;125,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap',
+    },
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }

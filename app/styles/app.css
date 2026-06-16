@@ -1,3 +1,22 @@
+@import 'tailwindcss';
+
+/*
+ * FERRUM design tokens — locked. See BRAND.md.
+ */
+@theme {
+  --color-obsidian: #0B0B0D;
+  --color-graphite: #141519;
+  --color-steel-800: #2A2D33;
+  --color-steel-500: #6B7079;
+  --color-steel-300: #A8ADB5;
+  --color-bone: #ECEAE4;
+  --color-ember: #D2592A;
+
+  --font-display: 'Archivo Expanded', 'Archivo', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
 :root {
   --aside-width: 400px;
   --cart-aside-summary-height-with-discount: 300px;
@@ -6,6 +25,13 @@
   --header-height: 64px;
   --color-dark: #000;
   --color-light: #fff;
+}
+
+html,
+body {
+  background: var(--color-obsidian);
+  color: var(--color-bone);
+  font-family: var(--font-body);
 }
 
 img {
@@ -85,23 +111,62 @@ img {
 }
 
 aside {
-  background: var(--color-light);
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+  background: var(--color-obsidian);
+  border-left: 1px solid var(--color-steel-800);
+  color: var(--color-bone);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
   height: 100vh;
   width: min(var(--aside-width), 100vw);
   position: fixed;
   right: calc(-1 * var(--aside-width));
   top: 0;
   transition: transform 200ms ease-in-out;
+  font-family: var(--font-body);
 }
 
 aside header {
   align-items: center;
-  border-bottom: 1px solid var(--color-dark);
+  border-bottom: 1px solid var(--color-steel-800);
   display: flex;
   height: var(--header-height);
   justify-content: space-between;
   padding: 0 20px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.8rem;
+  color: var(--color-bone);
+}
+
+aside header h3 {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-bone);
+}
+
+aside header .close {
+  color: var(--color-steel-300);
+  font-size: 1.5rem;
+}
+
+aside header .close:hover {
+  color: var(--color-ember);
+}
+
+aside a {
+  color: var(--color-ember);
+  text-decoration: none;
+}
+
+aside a:hover {
+  text-decoration: underline;
+}
+
+.overlay {
+  background: color-mix(in oklab, var(--color-obsidian) 70%, transparent);
 }
 
 aside header h3 {
@@ -331,12 +396,34 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .cart-summary-aside {
-  background: white;
-  border-top: 1px solid var(--color-dark);
+  background: var(--color-obsidian);
+  border-top: 1px solid var(--color-steel-800);
   bottom: 0;
   padding-top: 0.75rem;
   position: absolute;
   width: calc(var(--aside-width) - 40px);
+  font-family: var(--font-mono);
+  color: var(--color-bone);
+}
+
+.cart-line {
+  border-bottom: 1px solid var(--color-steel-800);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--color-bone);
+}
+
+.cart-line a {
+  color: var(--color-bone);
+  text-decoration: none;
+}
+
+.cart-line a:hover {
+  color: var(--color-ember);
+}
+
+.cart-line small {
+  color: var(--color-steel-500);
 }
 
 .cart-line-quantity {
