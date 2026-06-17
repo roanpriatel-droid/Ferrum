@@ -1,4 +1,5 @@
 import {Section, Eyebrow, Display} from '../Section';
+import {ImageBand} from '../ImageBand';
 
 export function Science() {
   return (
@@ -223,45 +224,16 @@ function Band({
   intensity?: 'soft' | 'strong';
 }) {
   return (
-    <div
-      aria-hidden="true"
+    <ImageBand
+      src={src}
+      decorative
+      height="clamp(120px, 16vw, 200px)"
+      tint={intensity === 'strong' ? 0.22 : 0.18}
+      sideFade
       style={{
-        position: 'relative',
-        width: '100%',
-        height: 'clamp(120px, 16vw, 200px)',
-        overflow: 'hidden',
         borderTop: '1px solid var(--color-steel-800)',
         borderBottom: '1px solid var(--color-steel-800)',
-        background: 'var(--color-obsidian)',
       }}
-    >
-      <img
-        src={src}
-        alt=""
-        width={2048}
-        height={1152}
-        loading="lazy"
-        decoding="async"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: '50% 50%',
-          opacity: intensity === 'strong' ? 0.75 : 0.55,
-          borderRadius: 0,
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(90deg, var(--color-obsidian) 0%, transparent 22%, transparent 78%, var(--color-obsidian) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
-    </div>
+    />
   );
 }

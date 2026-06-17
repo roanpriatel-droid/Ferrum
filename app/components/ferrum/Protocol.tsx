@@ -1,5 +1,6 @@
 import {Section, Eyebrow, Display} from './Section';
 import {EmberCta} from './EmberCta';
+import {ImageBand} from './ImageBand';
 import {PDP_PATH} from '~/lib/ferrum-tiers';
 
 const PROTOCOL_POINTS = [
@@ -12,45 +13,17 @@ const PROTOCOL_POINTS = [
 export function Protocol() {
   return (
     <>
-      <div
-        aria-hidden="true"
+      <ImageBand
+        src="/images/ember-flow.png"
+        decorative
+        height="clamp(140px, 18vw, 220px)"
+        tint={0.18}
+        sideFade
         style={{
-          position: 'relative',
-          width: '100%',
-          height: 'clamp(140px, 18vw, 220px)',
-          overflow: 'hidden',
           borderTop: '1px solid var(--color-steel-800)',
           borderBottom: '1px solid var(--color-steel-800)',
-          background: 'var(--color-obsidian)',
         }}
-      >
-        <img
-          src="/images/ember-flow.png"
-          alt=""
-          width={2048}
-          height={1152}
-          loading="lazy"
-          decoding="async"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: '50% 50%',
-            borderRadius: 0,
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background:
-              'linear-gradient(90deg, var(--color-obsidian) 0%, transparent 22%, transparent 78%, var(--color-obsidian) 100%)',
-            pointerEvents: 'none',
-          }}
-        />
-      </div>
+      />
 
       <Section id="protocol">
         <div

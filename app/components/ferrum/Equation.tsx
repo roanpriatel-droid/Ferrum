@@ -1,4 +1,5 @@
 import {Section, Eyebrow, Display} from './Section';
+import {ImageBand} from './ImageBand';
 
 type Lever = {
   index: string;
@@ -41,46 +42,17 @@ const LEVERS: Lever[] = [
 export function Equation() {
   return (
     <>
-      <div
-        aria-hidden="true"
+      <ImageBand
+        src="/images/texture-steel.png"
+        decorative
+        height="clamp(120px, 16vw, 200px)"
+        tint={0.18}
+        sideFade
         style={{
-          position: 'relative',
-          width: '100%',
-          height: 'clamp(120px, 16vw, 200px)',
-          overflow: 'hidden',
           borderTop: '1px solid var(--color-steel-800)',
           borderBottom: '1px solid var(--color-steel-800)',
-          background: 'var(--color-graphite)',
         }}
-      >
-        <img
-          src="/images/texture-steel.png"
-          alt=""
-          width={2048}
-          height={1152}
-          loading="lazy"
-          decoding="async"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: '50% 50%',
-            opacity: 0.85,
-            borderRadius: 0,
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background:
-              'linear-gradient(90deg, var(--color-obsidian) 0%, transparent 20%, transparent 80%, var(--color-obsidian) 100%)',
-            pointerEvents: 'none',
-          }}
-        />
-      </div>
+      />
 
       <Section id="equation">
         <div

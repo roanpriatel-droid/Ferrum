@@ -2,6 +2,7 @@ import {useEffect, useMemo, useRef, useState} from 'react';
 import type {Route} from './+types/reviews';
 import {Section, Eyebrow, Display} from '~/components/ferrum/Section';
 import {EmberCta} from '~/components/ferrum/EmberCta';
+import {ImageBand} from '~/components/ferrum/ImageBand';
 import {StarRating} from '~/components/ferrum/reviews/StarRating';
 import {ReviewCard} from '~/components/ferrum/reviews/ReviewCard';
 import {
@@ -92,36 +93,18 @@ function ReviewsHero({
         background: 'var(--color-obsidian)',
       }}
     >
-      <img
-        src="/images/bg-industrial.png"
-        alt=""
-        width={1536}
-        height={2048}
-        loading="eager"
-        decoding="sync"
-        fetchPriority="high"
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: '50% 30%',
-          opacity: 0.45,
-          borderRadius: 0,
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(180deg, color-mix(in oklab, var(--color-obsidian) 80%, transparent) 0%, color-mix(in oklab, var(--color-obsidian) 50%, transparent) 50%, color-mix(in oklab, var(--color-obsidian) 95%, transparent) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
+      <div style={{position: 'absolute', inset: 0}}>
+        <ImageBand
+          src="/images/bg-industrial.png"
+          decorative
+          position="50% 30%"
+          tint={0.14}
+          scrim="bottom"
+          priority
+          noTopFade
+          style={{height: '100%'}}
+        />
+      </div>
       <Section
         as="div"
         style={{

@@ -1,5 +1,6 @@
 import {Eyebrow, Display} from './Section';
 import {EmberCta} from './EmberCta';
+import {ImageBand} from './ImageBand';
 import {PDP_PATH} from '~/lib/ferrum-tiers';
 
 export function Premise() {
@@ -14,35 +15,16 @@ export function Premise() {
         background: 'var(--color-obsidian)',
       }}
     >
-      <img
-        src="/images/bg-industrial.png"
-        alt=""
-        width={1536}
-        height={2048}
-        loading="lazy"
-        decoding="async"
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: '50% 35%',
-          opacity: 0.55,
-          borderRadius: 0,
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(180deg, color-mix(in oklab, var(--color-obsidian) 55%, transparent) 0%, color-mix(in oklab, var(--color-obsidian) 80%, transparent) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
+      <div style={{position: 'absolute', inset: 0}}>
+        <ImageBand
+          src="/images/bg-industrial.png"
+          decorative
+          position="50% 35%"
+          tint={0.14}
+          scrim="bottom"
+          style={{height: '100%'}}
+        />
+      </div>
       <div
         style={{
           position: 'relative',

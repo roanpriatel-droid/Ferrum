@@ -1,5 +1,6 @@
 import {FeTile} from './FeTile';
 import {EmberCta} from './EmberCta';
+import {ImageBand} from './ImageBand';
 import {PDP_PATH} from '~/lib/ferrum-tiers';
 
 export function Hero() {
@@ -14,44 +15,18 @@ export function Hero() {
         overflow: 'hidden',
       }}
     >
-      <img
-        src="/images/hero.png"
-        alt="The Forge — FRM-01 — rendered on dark marble under cold studio light."
-        width={2048}
-        height={1152}
-        loading="eager"
-        decoding="sync"
-        fetchPriority="high"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: '70% 50%',
-          borderRadius: 0,
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(90deg, color-mix(in oklab, var(--color-obsidian) 92%, transparent) 0%, color-mix(in oklab, var(--color-obsidian) 65%, transparent) 38%, transparent 62%)',
-          pointerEvents: 'none',
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(180deg, transparent 0%, transparent 60%, color-mix(in oklab, var(--color-obsidian) 95%, transparent) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
+      <div style={{position: 'absolute', inset: 0}}>
+        <ImageBand
+          src="/images/hero.png"
+          alt="The Forge — FRM-01 — rendered on dark marble under cold studio light."
+          priority
+          parallax={false}
+          scrim="left"
+          position="70% 50%"
+          noTopFade
+          style={{height: '100%'}}
+        />
+      </div>
       <div
         style={{
           position: 'relative',

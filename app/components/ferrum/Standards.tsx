@@ -1,6 +1,7 @@
 import {Link} from 'react-router';
 import {Section, Eyebrow, Display} from './Section';
 import {EmberCta} from './EmberCta';
+import {GradedImage} from './GradedImage';
 import {ReviewCard} from './reviews/ReviewCard';
 import {StarRating} from './reviews/StarRating';
 import {getTopReviews, getAggregate} from '~/lib/ferrum-reviews';
@@ -42,22 +43,12 @@ export function Standards() {
               aspectRatio: '4 / 5',
             }}
           >
-            <img
+            <GradedImage
               src="/images/forearm.png"
               alt="A vascular forearm at rest beside the Forge — the standard."
               width={1280}
               height={1600}
-              loading="lazy"
-              decoding="async"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: '50% 50%',
-                borderRadius: 0,
-              }}
+              style={{position: 'absolute', inset: 0}}
             />
             <figcaption
               style={{

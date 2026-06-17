@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router';
 import {useOffer} from './OfferContext';
+import {GradedImage} from './GradedImage';
 import {TIERS, formatUsd} from '~/lib/ferrum-offer';
 import {PDP_PATH} from '~/lib/ferrum-tiers';
 
@@ -82,22 +83,14 @@ export function StickyBuyBar() {
             flexShrink: 0,
           }}
         >
-          <img
+          <GradedImage
             src="/images/forge-glow.png"
             alt=""
+            decorative
             width={120}
             height={120}
-            loading="lazy"
-            decoding="async"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              objectPosition: '50% 50%',
-              borderRadius: 0,
-            }}
+            tint={0.12}
+            style={{position: 'absolute', inset: 0}}
           />
         </div>
 

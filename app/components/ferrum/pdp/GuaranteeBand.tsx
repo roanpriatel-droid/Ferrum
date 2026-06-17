@@ -1,4 +1,5 @@
 import {Section, Eyebrow, Display} from '../Section';
+import {ImageBand} from '../ImageBand';
 
 export function GuaranteeBand() {
   return (
@@ -12,34 +13,16 @@ export function GuaranteeBand() {
         background: 'var(--color-obsidian)',
       }}
     >
-      <img
-        src="/images/bg-ember-glow.png"
-        alt=""
-        width={1536}
-        height={2048}
-        loading="lazy"
-        decoding="async"
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: '50% 65%',
-          borderRadius: 0,
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(180deg, color-mix(in oklab, var(--color-obsidian) 78%, transparent) 0%, color-mix(in oklab, var(--color-obsidian) 40%, transparent) 60%, color-mix(in oklab, var(--color-obsidian) 92%, transparent) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
+      <div style={{position: 'absolute', inset: 0}}>
+        <ImageBand
+          src="/images/bg-ember-glow.png"
+          decorative
+          position="50% 65%"
+          tint={0.18}
+          scrim="bottom"
+          style={{height: '100%'}}
+        />
+      </div>
       <Section as="div" style={{position: 'relative', paddingTop: 'clamp(5rem, 10vw, 8rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)'}}>
         <div
           style={{

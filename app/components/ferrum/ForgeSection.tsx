@@ -1,5 +1,6 @@
 import {Section, Eyebrow, Display} from './Section';
 import {EmberCta} from './EmberCta';
+import {GradedImage} from './GradedImage';
 import {PDP_PATH} from '~/lib/ferrum-tiers';
 
 type Spec = {label: string; value: string};
@@ -111,22 +112,12 @@ export function ForgeSection() {
               aspectRatio: '4 / 5',
             }}
           >
-            <img
+            <GradedImage
               src="/images/forge-glow.png"
               alt="The Forge — FRM-01 — beauty shot with ember glow."
               width={1280}
               height={1600}
-              loading="lazy"
-              decoding="async"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: '50% 50%',
-                borderRadius: 0,
-              }}
+              style={{position: 'absolute', inset: 0}}
             />
             <figcaption
               style={{
@@ -158,24 +149,15 @@ export function ForgeSection() {
               aspectRatio: '16 / 9',
             }}
           >
-            <img
+            <GradedImage
               src="/images/detail-macro.png"
               alt="Macro detail — faceted grip surface, oxide-black finish."
               width={1920}
               height={1080}
-              loading="lazy"
-              decoding="async"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: '50% 50%',
-                borderRadius: 0,
-              }}
+              style={{position: 'absolute', inset: 0}}
             />
             <div
+              aria-hidden="true"
               style={{
                 position: 'absolute',
                 left: 0,
@@ -183,7 +165,7 @@ export function ForgeSection() {
                 bottom: 0,
                 width: '55%',
                 background:
-                  'linear-gradient(90deg, color-mix(in oklab, var(--color-obsidian) 78%, transparent) 0%, transparent 100%)',
+                  'linear-gradient(90deg, rgba(11,11,13,0.78) 0%, transparent 100%)',
                 pointerEvents: 'none',
               }}
             />

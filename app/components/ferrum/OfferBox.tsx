@@ -2,6 +2,8 @@ import {Link} from 'react-router';
 import {Eyebrow, Display} from './Section';
 import {TierSelector} from './TierSelector';
 import {useOffer} from './OfferContext';
+import {ImageBand} from './ImageBand';
+import {GradedImage} from './GradedImage';
 import {TIERS, formatUsd, savings} from '~/lib/ferrum-offer';
 import {PDP_PATH} from '~/lib/ferrum-tiers';
 
@@ -21,35 +23,16 @@ export function OfferBox() {
         background: 'var(--color-obsidian)',
       }}
     >
-      <img
-        src="/images/forge-concrete.png"
-        alt=""
-        width={1920}
-        height={1280}
-        loading="lazy"
-        decoding="async"
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: '50% 40%',
-          opacity: 0.22,
-          borderRadius: 0,
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(180deg, color-mix(in oklab, var(--color-obsidian) 75%, transparent) 0%, color-mix(in oklab, var(--color-obsidian) 90%, transparent) 100%)',
-          pointerEvents: 'none',
-        }}
-      />
+      <div style={{position: 'absolute', inset: 0, opacity: 0.55}}>
+        <ImageBand
+          src="/images/forge-concrete.png"
+          decorative
+          position="50% 40%"
+          tint={0.22}
+          scrim="bottom"
+          style={{height: '100%'}}
+        />
+      </div>
       <div
         style={{
           position: 'relative',
@@ -98,22 +81,12 @@ export function OfferBox() {
               aspectRatio: '16 / 9',
             }}
           >
-            <img
+            <GradedImage
               src="/images/arsenal-trio.png"
               alt="Three Forge units — the Arsenal tier."
               width={1920}
               height={1080}
-              loading="lazy"
-              decoding="async"
-              style={{
-                position: 'absolute',
-                inset: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: '50% 50%',
-                borderRadius: 0,
-              }}
+              style={{position: 'absolute', inset: 0}}
             />
             <figcaption
               style={{

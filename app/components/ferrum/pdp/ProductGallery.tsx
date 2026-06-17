@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {GradedImage} from '../GradedImage';
 
 export type GalleryImage = {
   id?: string | null;
@@ -44,23 +45,13 @@ export function ProductGallery({images, title = 'The Forge'}: Props) {
           aspectRatio: '4 / 5',
         }}
       >
-        <img
+        <GradedImage
           src={active.url}
           alt={active.altText || title}
           width={active.width || 1280}
           height={active.height || 1600}
-          loading="eager"
-          decoding="sync"
-          fetchPriority="high"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: '50% 50%',
-            borderRadius: 0,
-          }}
+          priority
+          style={{position: 'absolute', inset: 0}}
         />
         <figcaption
           style={{
@@ -116,19 +107,12 @@ export function ProductGallery({images, title = 'The Forge'}: Props) {
                   transition: 'border-color 150ms ease',
                 }}
               >
-                <img
+                <GradedImage
                   src={img.url}
                   alt=""
-                  loading="lazy"
-                  decoding="async"
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    borderRadius: 0,
-                  }}
+                  decorative
+                  tint={0.14}
+                  style={{position: 'absolute', inset: 0}}
                 />
               </button>
             );
