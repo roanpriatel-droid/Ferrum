@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="0" ry="0" fill="#0B0B0D"/>
+  <text
+    x="32" y="44"
+    font-family='"Archivo", "Arial Black", "Helvetica Neue", Helvetica, "Inter", sans-serif'
+    font-weight="900"
+    font-size="40"
+    letter-spacing="-1.2"
+    text-anchor="middle"
+    fill="#ECEAE4"
+  >Fe</text>
+</svg>
